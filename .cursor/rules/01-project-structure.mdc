@@ -1,0 +1,67 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Estructura del Proyecto
+
+## Directorios Principales
+
+- `src/`: Código fuente principal
+  - `components/`: Componentes Vue reutilizables
+    - `common/`: Componentes comunes reutilizables (ej: ToastProvider)
+    - `forms/`: Componentes relacionados con formularios
+    - `polls/`: Componentes relacionados con encuestas
+    - `ui/`: Componentes de interfaz de usuario base
+    - `icons/`: Componentes de iconos
+  - `views/`: Vistas/páginas principales
+    - `forms/`: Vistas relacionadas con formularios
+    - `polls/`: Vistas relacionadas con encuestas
+  - `stores/`: Stores de Pinia
+    - `form.store.ts`: Store para gestión de formularios
+    - `poll.store.ts`: Store para gestión de encuestas
+  - `router/`: Configuración de rutas
+  - `types/`: Definiciones de TypeScript
+  - `assets/`: Recursos estáticos
+    - `main.css`: Estilos principales
+    - `animations.css`: Animaciones globales
+
+## Convenciones de Nombrado
+
+- Componentes: PascalCase (ej: `PollCreator.vue`)
+- Composables: camelCase con prefijo 'use' (ej: `useFormValidation.ts`)
+- Types: PascalCase con sufijo descriptivo (ej: `FormQuestion.types.ts`)
+- Stores: camelCase con sufijo '.store.ts' (ej: `pollStore.ts`)
+- Vistas: PascalCase con sufijo 'View' (ej: `HomeView.vue`)
+- Componentes UI: PascalCase con prefijo descriptivo (ej: `UiButton.vue`)
+- Componentes comunes: PascalCase (ej: `ToastProvider.vue`)
+
+## Estructura de Archivos
+
+- Cada componente debe estar en su propio archivo
+- Los componentes relacionados deben agruparse en subdirectorios
+- Los stores deben estar organizados por dominio
+- Las vistas deben corresponder a las rutas principales
+- Los tipos deben estar organizados por dominio
+
+## Importancia de TypeScript
+
+- Todo el código debe estar tipado correctamente usando TypeScript
+- Las interfaces y tipos deben estar en archivos separados
+- Usar tipos estrictos y evitar `any`
+- Documentar tipos complejos con comentarios JSDoc
+
+## Convenciones de Código
+
+- Todo el código debe estar en inglés
+- Los comentarios deben ser descriptivos y en inglés
+- Seguir las convenciones de Vue 3 y Composition API
+- Mantener la consistencia en el estilo de código
+- Usar ESLint y Prettier para el formateo
+
+## Configuración
+
+- Mantener archivos de configuración en la raíz del proyecto
+- Documentar cambios en la configuración
+- Seguir las mejores prácticas de cada herramienta
+- Mantener las dependencias actualizadas

@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body,
+#app {
+  min-height: 100vh;
+  width: 100%;
+  background: #18181b;
+  color-scheme: dark;
+}
+
+@import './base.css';
+
+/*
+a,
+.green {
+  text-decoration: none;
+  color: hsla(160, 100%, 37%, 1);
+  transition: 0.4s;
+  padding: 3px;
+}
+
+@media (hover: hover) {
+  a:hover {
+    background-color: hsla(160, 100%, 37%, 0.2);
+  }
+}
+*/
+
+/* Toast personalizado para vue-sonner */
+.sonner-toast-custom {
+  background: linear-gradient(135deg, #18181b 0%, #232336 100%) !important;
+  border: 1.5px solid #27272a !important;
+  color: #e0e0e0 !important;
+  box-shadow: 0 8px 32px 0 rgba(80, 80, 180, 0.15) !important;
+  border-radius: 1rem !important;
+  padding: 1.25rem 1.5rem !important;
+}
+.sonner-toast-custom .sonner-title {
+  background: linear-gradient(90deg, #818cf8, #a78bfa, #c084fc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+.sonner-toast-custom .sonner-description {
+  color: #cbd5e1 !important;
+}
+.sonner-toast-custom .sonner-close {
+  color: #a1a1aa !important;
+}

@@ -1,0 +1,73 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Estándares de Código
+
+## Vue 3 y Composition API
+
+- Usar `<script setup lang="ts">` en todos los componentes
+- Definir props usando `defineProps<{...}>()` con tipos TypeScript
+- Emitir eventos usando `defineEmits<{...}>()`
+- Mantener la lógica de componentes simple y modular
+- Extraer lógica compleja a composables
+- Usar `ref` para valores primitivos y `reactive` para objetos
+- Manejar efectos secundarios con `watch` y `watchEffect` de manera explícita
+- Utilizar `computed` para propiedades derivadas
+- Documentar la lógica compleja con comentarios
+
+## TypeScript
+
+- Definir interfaces para todas las estructuras de datos importantes
+- Usar tipos estrictos, evitar `any`
+- Documentar tipos complejos con comentarios JSDoc
+- Utilizar genéricos cuando sea apropiado para mejorar la reusabilidad
+- Usar tipos de utilidad (Pick, Omit, etc.) para derivar tipos
+- Definir tipos específicos para eventos de componentes
+- Utilizar tipos de unión para estados posibles
+
+## Estado y Stores
+
+- Usar Pinia para gestión de estado global
+- Mantener el estado local en componentes cuando sea apropiado
+- Definir tipos para el estado y las acciones
+- Documentar las mutaciones y acciones
+- Estructurar stores por dominio (forms, polls, etc.)
+- Manejar estado asíncrono con acciones
+- Implementar getters para datos derivados
+- Mantener los stores pequeños y enfocados
+
+## Componentes
+
+- Un componente por archivo
+- Nombres descriptivos y específicos
+- Props requeridas deben ser marcadas como tal
+- Documentar props y eventos con comentarios
+- Mantener componentes pequeños y enfocados
+- Organizar componentes en carpetas por funcionalidad
+- Utilizar componentes comunes para funcionalidad compartida
+- Implementar slots para contenido dinámico
+- Usar componentes dinámicos cuando sea apropiado
+
+## Estilos
+
+- Usar Tailwind CSS de manera consistente
+- Crear utilidades de estilo reutilizables
+- Mantener clases organizadas y legibles
+- Seguir el principio mobile-first
+- Mantener animaciones en archivos separados
+- Usar variables CSS para valores reutilizables
+- Implementar temas (claro/oscuro) de manera consistente
+- Seguir la convención de nombres BEM para clases personalizadas
+- Mantener la especificidad de CSS al mínimo
+
+## Estructura del Proyecto
+
+- Mantener una estructura de carpetas clara y consistente
+- Separar componentes por funcionalidad
+- Mantener los assets organizados por tipo
+- Documentar la estructura del proyecto
+- Seguir las convenciones de nombrado de archivos
+- Mantener los archivos de configuración actualizados
+- Documentar las dependencias y su propósito
