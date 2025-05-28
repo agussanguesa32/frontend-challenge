@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { RouterView, RouterLink, useRoute } from 'vue-router'
 import Navbar from '@/components/Navbar.vue'
-import ToastProvider from '@/components/common/ToastProvider.vue'
 import '@/assets/animations.css'
+import BaseToastProvider from '@/components/base/BaseToastProvider.vue'
 
 const route = useRoute()
 </script>
@@ -11,8 +11,8 @@ const route = useRoute()
   <div class="dark">
     <Navbar />
     <main class="min-h-screen bg-zinc-900">
+      <BaseToastProvider />
       <router-view />
-      <ToastProvider />
     </main>
   </div>
 </template>

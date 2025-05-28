@@ -3,6 +3,12 @@ import { ref, computed, onMounted } from 'vue'
 import { useFormStore } from '@/stores/form.store'
 import type { Form, FormResponse } from '@/types/form.types'
 import { toast } from 'vue-sonner'
+import BaseInput from '@/components/base/BaseInput.vue'
+import BaseTextarea from '@/components/base/BaseTextarea.vue'
+import BaseRadioGroup from '@/components/base/BaseRadioGroup.vue'
+import BaseButton from '@/components/base/BaseButton.vue'
+import BaseContainer from '@/components/base/BaseContainer.vue'
+import BaseTitle from '@/components/base/BaseTitle.vue'
 
 const props = defineProps<{
   form: Form
@@ -61,98 +67,52 @@ const submitForm = () => {
 </script>
 
 <template>
-  <div
-    class="max-w-3xl mx-auto bg-gradient-to-br from-zinc-900 via-zinc-900 to-zinc-800 rounded-3xl shadow-2xl overflow-hidden transition-all duration-300 border border-zinc-800/50 backdrop-blur-sm"
-  >
-    <div class="p-8">
-      <h3
-        class="text-2xl font-bold bg-gradient-to-r from-indigo-400 via-violet-400 to-purple-400 bg-clip-text text-transparent mb-6"
-      >
-        {{ form.title }}
-      </h3>
+  <BaseContainer max-width="3xl" padding>
+    <BaseTitle :level="2" class="mb-6">
+      {{ form.title }}
+    </BaseTitle>
 
-      <div class="space-y-8">
-        <div v-for="question in form.questions" :key="question.id" class="space-y-3 group">
-          <label
-            :for="question.id"
-            class="mb-4 block text-lg text-zinc-200 group-hover:text-indigo-300 transition-colors"
-          >
-            {{ question.text }}
-            <span v-if="question.required" class="text-rose-400">*</span>
-          </label>
+    <div class="space-y-8">
+      <div v-for="question in form.questions" :key="question.id" class="space-y-3 group">
+        <!-- Short Answer -->
+        <BaseInput
+          v-if="question.type === 'short'"
+          v-model="responses[question.id] as string"
+          :label="question.text"
+          :required="question.required"
+          :placeholder="question.placeholder"
+        />
 
-          <!-- Short Answer -->
-          <input
-            v-if="question.type === 'short'"
-            :id="question.id"
-            v-model="responses[question.id]"
-            type="text"
-            class="mb-4 w-full px-4 py-3 bg-zinc-900/50 backdrop-blur-sm border border-zinc-700/50 rounded-xl focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500/50 text-zinc-100 placeholder-zinc-500 transition-all duration-300 hover:bg-zinc-900/70"
-            :placeholder="question.placeholder"
-          />
+        <!-- Long Answer -->
+        <BaseTextarea
+          v-if="question.type === 'long'"
+          v-model="responses[question.id] as string"
+          :label="question.text"
+          :required="question.required"
+          :placeholder="question.placeholder"
+        />
 
-          <!-- Long Answer -->
-          <textarea
-            v-if="question.type === 'long'"
-            :id="question.id"
-            v-model="responses[question.id]"
-            rows="4"
-            class="mb-4 w-full px-4 py-3 bg-zinc-900/50 backdrop-blur-sm border border-zinc-700/50 rounded-xl focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500/50 text-zinc-100 placeholder-zinc-500 transition-all duration-300 hover:bg-zinc-900/70"
-            :placeholder="question.placeholder"
-          ></textarea>
+        <!-- Number -->
+        <BaseInput
+          v-if="question.type === 'number'"
+          v-model="responses[question.id] as number"
+          type="number"
+          :label="question.text"
+          :required="question.required"
+          :placeholder="question.placeholder"
+        />
 
-          <!-- Number -->
-          <input
-            v-if="question.type === 'number'"
-            :id="question.id"
-            v-model.number="responses[question.id]"
-            type="number"
-            class="mb-4 w-full px-4 py-3 bg-zinc-900/50 backdrop-blur-sm border border-zinc-700/50 rounded-xl focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500/50 text-zinc-100 placeholder-zinc-500 transition-all duration-300 hover:bg-zinc-900/70"
-            :placeholder="question.placeholder"
-          />
-
-          <!-- Radio -->
-          <div v-if="question.type === 'radio'" class="space-y-3">
-            <div
-              v-for="(option, index) in question.options"
-              :key="index"
-              class="transform transition-all duration-300 hover:scale-[1.01]"
-            >
-              <label
-                class="mb-4 flex items-center w-full p-4 border-2 rounded-xl cursor-pointer transition-all duration-300"
-                :class="{
-                  'border-indigo-500/50 bg-gradient-to-r from-indigo-900/40 to-violet-900/40 ring-4 ring-indigo-900/20':
-                    responses[question.id] === index,
-                  'border-zinc-700/50 hover:border-zinc-600/50 hover:bg-zinc-900/30':
-                    responses[question.id] !== index,
-                }"
-              >
-                <input
-                  type="radio"
-                  :name="question.id"
-                  :value="index"
-                  v-model.number="responses[question.id]"
-                  class="w-5 h-5 text-indigo-400 border-zinc-600 focus:ring-indigo-500 bg-zinc-900/50 flex-shrink-0"
-                />
-                <span class="ml-4 text-zinc-100 break-words">{{ option }}</span>
-              </label>
-            </div>
-          </div>
-        </div>
-
-        <button
-          @click="submitForm"
-          :disabled="!isValid"
-          class="mt-8 w-full px-8 py-4 bg-gradient-to-br from-indigo-600 via-indigo-500 to-violet-500 text-white text-lg font-medium rounded-xl transition-all duration-300 transform shadow-lg shadow-indigo-500/20 hover:-translate-y-0.5"
-          :class="{
-            'hover:from-indigo-700 hover:via-indigo-600 hover:to-violet-600 hover:shadow-indigo-500/30':
-              isValid,
-            'opacity-50 cursor-not-allowed': !isValid,
-          }"
-        >
-          Submit Form
-        </button>
+        <!-- Radio -->
+        <BaseRadioGroup
+          v-if="question.type === 'radio'"
+          v-model="responses[question.id] as number | null"
+          :options="question.options || []"
+          :label="question.text"
+          :required="question.required"
+        />
       </div>
+
+      <BaseButton @click="submitForm" variant="primary" full-width> Submit Form </BaseButton>
     </div>
-  </div>
+  </BaseContainer>
 </template>

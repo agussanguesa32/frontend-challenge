@@ -59,8 +59,6 @@ El proyecto utiliza varias herramientas de desarrollo y configuración:
 
 - `npm run dev`: Inicia el servidor de desarrollo
 - `npm run build`: Construye la aplicación para producción
-- `npm run preview`: Vista previa de la build de producción
-- `npm run lint`: Ejecuta el linter
 - `npm run format`: Formatea el código con Prettier
 
 ## Dependencias Principales
