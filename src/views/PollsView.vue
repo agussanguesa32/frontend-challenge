@@ -54,7 +54,10 @@ const tabs = [
     </div>
 
     <!-- View Toggle Button -->
-    <div v-if="activeTab !== 'create'" class="max-w-4xl w-full mx-auto mb-6 text-center">
+    <div
+      v-if="activeTab !== 'create'"
+      class="max-w-4xl w-full mx-auto mb-6 text-center hidden sm:block"
+    >
       <BaseButton @click="viewStore.toggleView" variant="primary">
         {{ viewStore.isCompactView ? 'Vista Extendida' : 'Vista Compacta' }}
       </BaseButton>

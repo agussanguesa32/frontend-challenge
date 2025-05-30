@@ -67,7 +67,7 @@ onUnmounted(() => {
             >Bindin</span
           >
         </router-link>
-        <!-- Opciones centradas SOLO en sm+ -->
+        <!-- Opciones centradas SOLO en sm+ (sm+ es desde 640px osea pantallas chicas) -->
         <div class="absolute left-1/2 top-0 h-16 items-center -translate-x-1/2 hidden sm:flex">
           <div class="flex items-center gap-2">
             <router-link
@@ -171,7 +171,7 @@ onUnmounted(() => {
               alt="Bindin Logo"
               class="w-8 h-8 object-contain rounded-full shadow-md"
             />
-            <h2 class="text-xl font-bold text-zinc-100">Menú</h2>
+            <h2 class="text-xl font-bold text-zinc-100">Menu</h2>
           </div>
           <button
             type="button"
