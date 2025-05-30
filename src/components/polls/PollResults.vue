@@ -3,11 +3,13 @@ import { computed } from 'vue'
 import type { Poll } from '@/types/poll.types'
 import BaseContainer from '@/components/base/BaseContainer.vue'
 import BaseTitle from '@/components/base/BaseTitle.vue'
+import { useViewStore } from '@/stores/view.store'
 
 const props = defineProps<{
   poll: Poll
 }>()
 
+const viewStore = useViewStore()
 const totalVotes = computed(() => props.poll.totalVotes)
 
 const getPercentage = (votes: number) => {
@@ -17,22 +19,47 @@ const getPercentage = (votes: number) => {
 </script>
 
 <template>
-  <BaseContainer max-width="2xl" padding>
-    <BaseTitle :level="2" center class="mb-6">
+  <BaseContainer
+    :max-width="viewStore.isCompactView ? undefined : '2xl'"
+    :padding="false"
+    :class="[viewStore.isCompactView ? 'p-5' : 'p-6', 'flex flex-col h-full w-full']"
+  >
+    <BaseTitle
+      :level="viewStore.isCompactView ? 3 : 2"
+      :center="!viewStore.isCompactView"
+      :class="[viewStore.isCompactView ? 'mb-5' : 'mb-4', 'text-ellipsis overflow-hidden']"
+    >
       {{ poll.question }}
     </BaseTitle>
 
-    <div class="text-zinc-400 mb-6 text-center">Results</div>
+    <div
+      :class="[
+        viewStore.isCompactView ? 'mb-5' : 'mb-4',
+        'text-zinc-400',
+        { 'text-center': !viewStore.isCompactView },
+      ]"
+    >
+      Results
+    </div>
 
-    <div class="space-y-6">
+    <div
+      :class="[
+        viewStore.isCompactView ? 'space-y-5' : 'space-y-6',
+        'flex-grow overflow-y-hidden overflow-x-hidden',
+      ]"
+    >
       <div
         v-for="option in poll.options"
         :key="option.id"
-        class="mb-3 bg-zinc-800/30 rounded-xl border border-zinc-700/30 p-4"
+        class="mb-3 bg-zinc-800/30 rounded-xl border border-zinc-700/30 p-5"
       >
         <div class="flex items-center justify-between mb-2">
-          <span class="text-zinc-100">{{ option.text }}</span>
-          <span class="text-zinc-400">{{ getPercentage(option.votes) }}%</span>
+          <span class="text-zinc-100 text-sm break-words min-w-0 mr-2">{{ option.text }}</span>
+          <span
+            class="text-zinc-400 text-sm flex-shrink-0"
+            :class="{ 'ml-2': viewStore.isCompactView }"
+            >{{ getPercentage(option.votes) }}%</span
+          >
         </div>
         <div class="w-full bg-zinc-900/50 rounded-full h-2">
           <div
@@ -40,12 +67,20 @@ const getPercentage = (votes: number) => {
             :style="{ width: `${getPercentage(option.votes)}%` }"
           ></div>
         </div>
-        <div class="text-sm text-zinc-500 mt-1">
+        <div class="text-xs text-zinc-500 mt-1">
           {{ option.votes }} {{ option.votes === 1 ? 'vote' : 'votes' }}
         </div>
       </div>
     </div>
 
-    <div class="text-center text-zinc-400 mt-6">Total votes: {{ totalVotes }}</div>
+    <div
+      :class="[
+        viewStore.isCompactView ? 'mt-5' : 'mt-4',
+        'text-zinc-400',
+        { 'text-center': !viewStore.isCompactView },
+      ]"
+    >
+      Total votes: {{ totalVotes }}
+    </div>
   </BaseContainer>
 </template>

@@ -60,11 +60,7 @@ const tabs = [
       <!-- Active Forms Section -->
       <div v-if="activeTab === 'active'" class="space-y-8 animate-fade-in">
         <template v-if="formStore.getAllForms().length">
-          <div v-for="form in formStore.getAllForms()" :key="form.id">
-            <div class="py-4">
-              <RespondForm :form="form" />
-            </div>
-          </div>
+          <RespondForm />
         </template>
 
         <div

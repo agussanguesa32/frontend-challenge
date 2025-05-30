@@ -117,7 +117,7 @@ const createPoll = async () => {
 
       <!-- Poll Options -->
       <div class="space-y-6">
-        <label class="block text-base font-medium text-zinc-300">Poll Options</label>
+        <label class="mb-3 block text-base font-medium text-zinc-300">Poll Options</label>
         <div class="space-y-4">
           <div v-for="(option, index) in options" :key="index" class="flex items-start gap-2">
             <div class="flex-1">

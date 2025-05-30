@@ -1,11 +1,14 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { usePollStore } from '@/stores/poll.store'
+import { useViewStore } from '@/stores/view.store'
 import CreatePoll from '@/components/polls/CreatePoll.vue'
 import RespondPoll from '@/components/polls/RespondPoll.vue'
 import PollResults from '@/components/polls/PollResults.vue'
+import BaseButton from '@/components/base/BaseButton.vue'
 
 const pollStore = usePollStore()
+const viewStore = useViewStore()
 const activeTab = ref<'create' | 'active' | 'results'>('active')
 
 const tabs = [
@@ -50,6 +53,13 @@ const tabs = [
       </div>
     </div>
 
+    <!-- View Toggle Button -->
+    <div v-if="activeTab !== 'create'" class="max-w-4xl w-full mx-auto mb-6 text-center">
+      <BaseButton @click="viewStore.toggleView" variant="primary">
+        {{ viewStore.isCompactView ? 'Vista Extendida' : 'Vista Compacta' }}
+      </BaseButton>
+    </div>
+
     <!-- Content Sections -->
     <div class="max-w-4xl w-full mx-auto">
       <!-- Create Poll Section -->
@@ -58,10 +68,17 @@ const tabs = [
       </div>
 
       <!-- Active Polls Section -->
-      <div v-if="activeTab === 'active'" class="space-y-6 sm:space-y-8 animate-fade-in">
+      <div v-if="activeTab === 'active'" class="animate-fade-in">
         <template v-if="pollStore.getAllPolls().length">
-          <div v-for="poll in pollStore.getAllPolls()" :key="poll.id">
-            <div class="py-2 sm:py-4">
+          <div :class="{ 'grid grid-cols-1 md:grid-cols-3 gap-4': viewStore.isCompactView }">
+            <div
+              v-for="poll in pollStore.getAllPolls()"
+              :key="poll.id"
+              :class="{
+                'py-2 sm:py-4': !viewStore.isCompactView,
+                'h-full flex flex-col': viewStore.isCompactView,
+              }"
+            >
               <RespondPoll :poll="poll" />
             </div>
           </div>
@@ -77,10 +94,17 @@ const tabs = [
       </div>
 
       <!-- Results Section -->
-      <div v-if="activeTab === 'results'" class="space-y-6 sm:space-y-8 animate-fade-in">
+      <div v-if="activeTab === 'results'" class="animate-fade-in">
         <template v-if="pollStore.getAllPolls().length">
-          <div v-for="poll in pollStore.getAllPolls()" :key="poll.id">
-            <div class="py-2 sm:py-4">
+          <div :class="{ 'grid grid-cols-1 md:grid-cols-3 gap-4': viewStore.isCompactView }">
+            <div
+              v-for="poll in pollStore.getAllPolls()"
+              :key="poll.id"
+              :class="{
+                'py-2 sm:py-4': !viewStore.isCompactView,
+                'h-full flex flex-col': viewStore.isCompactView,
+              }"
+            >
               <PollResults :poll="poll" />
             </div>
           </div>

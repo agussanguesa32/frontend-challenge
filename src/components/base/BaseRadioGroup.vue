@@ -10,6 +10,9 @@ defineProps<{
 const emit = defineEmits<{
   (e: 'update:modelValue', value: number): void
 }>()
+
+import { useViewStore } from '@/stores/view.store'
+const viewStore = useViewStore()
 </script>
 
 <template>
@@ -21,7 +24,12 @@ const emit = defineEmits<{
       {{ label }}
       <span v-if="required" class="text-rose-400">*</span>
     </label>
-    <div class="space-y-3">
+    <div
+      :class="[
+        viewStore.isCompactView ? 'overflow-x-hidden' : 'overflow-x-hidden px-1',
+        'space-y-3',
+      ]"
+    >
       <div
         v-for="(option, index) in options"
         :key="index"
@@ -44,7 +52,7 @@ const emit = defineEmits<{
             @change="emit('update:modelValue', index)"
             class="w-5 h-5 text-indigo-400 border-zinc-600 focus:ring-indigo-500 bg-zinc-900/50 flex-shrink-0"
           />
-          <span class="ml-4 text-zinc-100 break-words">{{ option }}</span>
+          <span class="ml-4 text-zinc-100 break-words min-w-0">{{ option }}</span>
         </label>
       </div>
     </div>
