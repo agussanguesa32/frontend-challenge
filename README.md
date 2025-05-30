@@ -8,7 +8,7 @@ Agustín Sangüesa
 
 Esta es una aplicacion web destinada a cumplir el frontend challenge de Bindin. La consigna, solicita un sistema de encuestas/formularios con ciertos detalles en cuanto a tecnologias y tecnicas.
 
-🔗 [Ver demo en YouTube](https://youtu.be/jF12h83XH-g)
+🔗 [Ver demo en YouTube](https://youtu.be/jF12h83XH-g) (Outdated por pequeños cambios visuales)
 
 ## Tecnologías Principales
 
